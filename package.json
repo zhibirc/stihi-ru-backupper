@@ -11,7 +11,9 @@
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "dependencies": {
-        "cheerio": "^1.0.0-rc.3"
+        "cheerio": "^1.0.0-rc.3",
+        "got": "^10.6.0",
+        "windows-1251": "^1.0.0"
     },
     "keywords": [],
     "license": "MIT"
