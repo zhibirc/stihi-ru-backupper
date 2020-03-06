@@ -21,19 +21,20 @@ const composer = new (require('./src/composer'));
 const DIRECTORY_NAME = 'backups';
 const FILE_NAME      = `stihi-ru-backup_${new Date().toISOString().slice(0, 10)}.txt`;
 
-const BASE_URL = 'https://stihi.ru/avtor/';
+const BASE_URL = 'https://stihi.ru';
 
 const ACCOUNT = process.argv[2] || (() => {
     console.log('You must to pass account name as an argument!');
     process.exit(1);
 })();
 
-const pageUrl = BASE_URL + ACCOUNT;
+const pageUrl = `${BASE_URL}/avtor/${ACCOUNT}`;
 
 const backupsPath = path.join(__dirname, DIRECTORY_NAME, FILE_NAME);
 
+const poemSelector = '.poemlink';
+
 let poemLinks = [];
-let content   = '';
 
 let $;
 
@@ -52,6 +53,12 @@ let $;
         $ = cheerio.load(responseDecoded);
 
         composer.setTitle($('h1').text(), ACCOUNT, pageUrl, amount);
+
+        $(poemSelector).each((index, element) => {
+            poemLinks.push(BASE_URL + $(element).attr('href'));
+        });
+
+        //console.log(poemLinks);
 
         writeFile(composer.getResult());
     } catch ( error ) {
