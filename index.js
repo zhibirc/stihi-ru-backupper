@@ -1,5 +1,7 @@
 /**
  * @author Yaroslav Surilov <>
+ *
+ * @license MIT
  */
 
 'use strict';
