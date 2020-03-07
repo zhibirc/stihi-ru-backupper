@@ -16,38 +16,51 @@ const got = require('got');
 /** @see {@link https://www.npmjs.com/package/cheerio} */
 const cheerio = require('cheerio');
 
-const composer = new (require('./src/composer'));
+const composer = new (require('./lib/composer'));
 
-const DIRECTORY_NAME = 'backups';
-const FILE_NAME      = `stihi-ru-backup_${new Date().toISOString().slice(0, 10)}.txt`;
-const BASE_URL       = 'https://stihi.ru';
-const ACCOUNT        = process.argv[2] || (() => {
+const DIRECTORY_NAME     = 'backups';
+const FILE_NAME          = `stihi-ru-backup_${new Date().toISOString().slice(0, 10)}.txt`;
+const BASE_URL           = 'https://stihi.ru';
+const OFFSET             = 50;
+const POEM_URL_SELECTOR  = '.poemlink';
+const POEM_TEXT_SELECTOR = '.text';
+const ACCOUNT            = process.argv[2] || (() => {
     console.log('You must to pass account name as an argument!');
     process.exit(1);
 })();
 
-const pageUrl      = `${BASE_URL}/avtor/${ACCOUNT}`;
-const backupsPath  = path.join(__dirname, DIRECTORY_NAME, FILE_NAME);
-const poemSelector = '.poemlink';
+const pageUrl     = `${BASE_URL}/avtor/${ACCOUNT}`;
+const backupsPath = path.join(__dirname, DIRECTORY_NAME, FILE_NAME);
+
+const decode = buffer => windows1251.decode(buffer.toString('binary'));
 
 let poemLinks = [];
 
 let $;
 
+console.log('Please, wait...');
+
 (async () => {
     try {
-        const response = await load(pageUrl);
-        const responseDecoded = windows1251.decode(response.toString('binary'));
+        const response = decode(await load(pageUrl));
 
-        let amount = responseDecoded.replace(/^[\S\s]*Произведений: <b>(\d+)[\S\s]*$/, '$1');
+        let amount = response.replace(/^[\S\s]*Произведений: <b>(\d+)[\S\s]*$/, '$1');
 
-        parse(responseDecoded);
-        composer.setTitle($('h1').text(), ACCOUNT, pageUrl, amount);
+        parse(response);
+        composer.addTitle($('h1').text(), ACCOUNT, pageUrl, amount);
 
-        amount = ~~(amount / 50);
+        amount = ~~(amount / OFFSET);
 
         for ( let index = 1; index <= amount; index += 1 ) {
-            parse(await load(`${pageUrl}&s=${index * 50}`));
+            parse(await load(`${pageUrl}&s=${index * OFFSET}`));
+        }
+
+        amount = poemLinks.length;
+
+        for ( let index = 0; index < amount; index += 1 ) {
+            const response = decode(await load(poemLinks[index]));
+
+            composer.addPoem(...parse(response, true));
         }
 
         writeFile(composer.getResult());
@@ -66,12 +79,19 @@ async function load ( url ) {
 }
 
 
-function parse ( data ) {
+function parse ( data, isPoem = false ) {
     $ = cheerio.load(data);
 
-    $(poemSelector).each((index, element) => {
-        poemLinks.push(BASE_URL + $(element).attr('href'));
-    });
+    if ( isPoem ) {
+        return [
+            $('h1').text(),
+            $(POEM_TEXT_SELECTOR).text()
+        ];
+    } else {
+        $(POEM_URL_SELECTOR).each((index, element) => {
+            poemLinks.push(BASE_URL + $(element).attr('href'));
+        });
+    }
 }
 
 
