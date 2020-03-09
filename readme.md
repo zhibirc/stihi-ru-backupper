@@ -6,7 +6,7 @@ Just run: `node . <nickname>`
 
 ## Contributing
 
-The main purpose of this repository is to provide useful instruments to bulk processing of author's creativity, save work and to help to improve its quality. 
+The main purpose of this repository is to provide useful instruments to bulk processing of author's creativity, save personal time, save work and to help to improve its quality. 
 I'm grateful to the community for contributing bug fixes and improvements. Read [checklist](./checklist.md) to learn how you can take part in improving.
 
 ## License
