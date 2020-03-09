@@ -19,6 +19,7 @@ const got = require('got');
 const cheerio = require('cheerio');
 
 const composer = new (require('./lib/composer'));
+const progress = new (require('./lib/progress'));
 
 const DIRECTORY_NAME     = 'backups';
 const FILE_NAME          = `stihi-ru-backup_${new Date().toISOString().slice(0, 10)}.txt`;
@@ -41,6 +42,7 @@ let poemLinks = [];
 let $;
 
 console.log('Please, wait...');
+progress.start();
 
 (async () => {
     try {
