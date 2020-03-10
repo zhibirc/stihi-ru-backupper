@@ -64,7 +64,7 @@ progress.startLoop();
         for ( let index = 0; index < amount; index += 1 ) {
             const response = decode(await load(poemLinks[index]));
 
-            composer.addPoem(...parse(response, true));
+            composer.addPoem(...parse(response, true), poemLinks[index]);
         }
 
         writeFile(composer.getResult());
