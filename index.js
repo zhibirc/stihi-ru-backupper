@@ -42,7 +42,7 @@ let poemLinks = [];
 let $;
 
 console.log('Please, wait...');
-progress.start();
+progress.startLoop();
 
 (async () => {
     try {
