@@ -21,10 +21,10 @@ const got = require('got');
 /** @see {@link https://www.npmjs.com/package/cheerio} */
 const cheerio = require('cheerio');
 
-const composer = new (require('./lib/composer'));
-const progress = new (require('./lib/progress'));
+const composer = new (require('../lib/composer'));
+const progress = new (require('../lib/progress'));
 
-const packageConfig = require('./package.json');
+const packageConfig = require('../package.json');
 
 const DIRECTORY_NAME     = 'backups';
 const FILE_NAME          = `stihi-ru-backup_${new Date().toISOString().slice(0, 10)}.txt`;

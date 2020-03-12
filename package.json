@@ -7,6 +7,10 @@
         "email": ""
     },
     "private": true,
+    "preferGlobal": true,
+    "bin": {
+        "stihi": "./bin/cli.js"
+    },
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
     },
