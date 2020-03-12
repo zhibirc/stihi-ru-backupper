@@ -9,6 +9,9 @@
 const fs   = require('fs');
 const path = require('path');
 
+/** @see {@link https://www.npmjs.com/package/commander} */
+const commander = require('commander');
+
 /** @see {@link https://www.npmjs.com/package/windows-1251} */
 const windows1251 = require('windows-1251');
 
@@ -21,16 +24,27 @@ const cheerio = require('cheerio');
 const composer = new (require('./lib/composer'));
 const progress = new (require('./lib/progress'));
 
+const packageConfig = require('./package.json');
+
 const DIRECTORY_NAME     = 'backups';
 const FILE_NAME          = `stihi-ru-backup_${new Date().toISOString().slice(0, 10)}.txt`;
 const BASE_URL           = 'https://stihi.ru';
 const OFFSET             = 50;
 const POEM_URL_SELECTOR  = '.poemlink';
 const POEM_TEXT_SELECTOR = '.text';
-const ACCOUNT            = process.argv[2] || (() => {
+
+commander
+    .version(packageConfig.version)
+    .usage('[options] <account name>')
+    .option('-r, --reverse-order', 'sort the poems in date descending order')
+    .parse(process.argv);
+
+const ACCOUNT = commander.args.pop() || (() => {
     console.log('You must to pass account name as an argument!');
     process.exit(1);
 })();
+
+const isReverseOrderEnabled = commander.reverseOrder;
 
 const pageUrl     = `${BASE_URL}/avtor/${ACCOUNT}`;
 const backupsPath = path.join(__dirname, DIRECTORY_NAME, FILE_NAME);

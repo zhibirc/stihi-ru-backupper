@@ -12,6 +12,7 @@
     },
     "dependencies": {
         "cheerio": "^1.0.0-rc.3",
+        "commander": "^4.1.1",
         "got": "^10.6.0",
         "windows-1251": "^1.0.0"
     },
