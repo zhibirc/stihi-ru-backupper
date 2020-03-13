@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 /**
  * @author Yaroslav Surilov <>
  *
@@ -24,9 +26,7 @@ const app = new App({
 
 app.isAccountPresent()
     .then(async () => await app.startScan())
-    .catch(console.error);
-
-//process.on('exit', wamp.call.bind(wamp, 'controlPointDisconnect'));
+    .catch(() => commander.help());
 
 //['SIGINT', 'SIGTERM'].forEach(signal => process.on(signal, process.exit));
 
