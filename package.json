@@ -7,7 +7,6 @@
         "email": ""
     },
     "private": true,
-    "preferGlobal": true,
     "bin": {
         "stihi": "./bin/cli.js"
     },
