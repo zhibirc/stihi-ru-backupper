@@ -17,6 +17,8 @@ commander
     .version(require('../package.json').version)
     .usage('[options] <account name>')
     .option('-r, --reverse-order', 'sort the poems in date descending order')
+    .option('-c, --compress', 'compress the resulting file')
+    .option('-a, --analyze', 'analyze the resulting file and report potential problems')
     .parse(process.argv);
 
 const app = new App({
