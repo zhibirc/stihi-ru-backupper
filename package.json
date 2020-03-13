@@ -19,6 +19,18 @@
         "got": "^10.6.0",
         "windows-1251": "^1.0.0"
     },
-    "keywords": [],
+    "keywords": [
+        "stihi",
+        "stihi-ru",
+        "stihiru",
+        "poetry",
+        "backup",
+        "web-scraper",
+        "data-extraction",
+        "web-scraping",
+        "data-mining",
+        "parsing",
+        "syntax-analyzer"
+    ],
     "license": "MIT"
 }
