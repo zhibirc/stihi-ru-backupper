@@ -23,7 +23,8 @@ commander
 
 const app = new App({
     accountName:  commander.args.pop(),
-    reverseOrder: commander.reverseOrder
+    reverseOrder: commander.reverseOrder,
+    analyze:      commander.analyze
 });
 
 app.isAccountPresent()
