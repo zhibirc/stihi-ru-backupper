@@ -31,7 +31,7 @@ app.isAccountPresent()
     .then(async () => await app.startScan())
     .catch(() => commander.help());
 
-//['SIGINT', 'SIGTERM'].forEach(signal => process.on(signal, process.exit));
+['SIGINT', 'SIGTERM'].forEach(signal => process.on(signal, process.exit));
 
 process.on('uncaughtException', error => {
     process.exit(1);
