@@ -11,7 +11,7 @@
         "stihi": "./bin/cli.js"
     },
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "start": "electron bin/cli.js"
     },
     "dependencies": {
         "cheerio": "^1.0.0-rc.3",
@@ -34,5 +34,8 @@
         "parsing",
         "syntax-analyzer"
     ],
-    "license": "MIT"
+    "license": "MIT",
+    "devDependencies": {
+        "electron": "^8.1.1"
+    }
 }
