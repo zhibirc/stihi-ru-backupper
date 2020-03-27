@@ -11,6 +11,7 @@
     "bin": {
         "stihi": "./bin/cli.js"
     },
+    "build": {},
     "scripts": {
         "start": "electron desktop/main.js"
     },
@@ -23,7 +24,8 @@
         "yandex-speller": "^4.0.0"
     },
     "devDependencies": {
-        "electron": "^8.1.1"
+        "electron": "^8.1.1",
+        "electron-builder": "^22.4.1"
     },
     "keywords": [
         "stihi",

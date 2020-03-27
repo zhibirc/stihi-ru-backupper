@@ -15,20 +15,27 @@ function createWindow () {
         }
     });
 
-    //windowMain.loadFile('index.html');
-    windowMain.loadURL(require('url').format({
-        protocol: 'file',
-        slashes:  true,
-        pathname: path.join(__dirname, 'index.html')
-    }));
-
     windowMain.once('ready-to-show', () => {
+        //console.log(document.body.innerHTML);
         windowMain.show();
     });
 
     windowMain.on('closed', () => {
         windowMain = null;
     });
+
+    // if the render process crashes, reload the window
+    /*windowMain.webContents.on('crashed', () => {
+        windowMain.destroy();
+        createWindow();
+    });*/
+
+    //windowMain.loadFile('index.html');
+    windowMain.loadURL(require('url').format({
+        protocol: 'file',
+        slashes:  true,
+        pathname: path.join(__dirname, 'index.html')
+    }));
 
     // for debug
     //windowMain.webContents.openDevTools();
