@@ -2,10 +2,15 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <meta http-equiv="Content-Security-Policy" content="script-src 'self'">
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+        <!-- for legacy support -->
+        <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+
         <title>STIHI.RU Backupper</title>
+
+        <link rel="stylesheet" href="main.css">
     </head>
     <body>
-    <h1>Привет мир!</h1>
+    <script src="renderer.js"></script>
     </body>
 </html>

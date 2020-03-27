@@ -1,21 +1,37 @@
 'use strict';
 
 const path = require('path');
-const { app, BrowserWindow } = require('electron');
+const {app, BrowserWindow} = require('electron');
 
 function createWindow () {
-    const windowMain = new BrowserWindow({
+    let windowMain = new BrowserWindow({
         width:  800,
         height: 600,
+        show: false,
+        backgroundColor: '#2e2c29',
         webPreferences: {
             nodeIntegration: true,
             preload: path.join(__dirname, 'preload.js')
         }
     });
 
-    windowMain.loadFile('index.html');
+    //windowMain.loadFile('index.html');
+    windowMain.loadURL(require('url').format({
+        protocol: 'file',
+        slashes:  true,
+        pathname: path.join(__dirname, 'index.html')
+    }));
 
-    //mainWindow.webContents.openDevTools();
+    windowMain.once('ready-to-show', () => {
+        windowMain.show();
+    });
+
+    windowMain.on('closed', () => {
+        windowMain = null;
+    });
+
+    // for debug
+    //windowMain.webContents.openDevTools();
 }
 
 app.whenReady().then(createWindow);

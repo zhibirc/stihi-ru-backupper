@@ -6,6 +6,7 @@
         "name": "Yaroslav Surilov",
         "email": ""
     },
+    "main": "./desktop/main.js",
     "private": true,
     "bin": {
         "stihi": "./bin/cli.js"
@@ -21,6 +22,9 @@
         "xregexp": "^4.3.0",
         "yandex-speller": "^4.0.0"
     },
+    "devDependencies": {
+        "electron": "^8.1.1"
+    },
     "keywords": [
         "stihi",
         "stihi-ru",
@@ -34,8 +38,5 @@
         "parsing",
         "syntax-analyzer"
     ],
-    "license": "MIT",
-    "devDependencies": {
-        "electron": "^8.1.1"
-    }
+    "license": "MIT"
 }
