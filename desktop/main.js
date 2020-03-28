@@ -3,10 +3,13 @@
 const path = require('path');
 const {app, BrowserWindow} = require('electron');
 const elemon = require('elemon');
+const debug = require('electron-debug');
+
+debug();
 
 let windowMain;
 
-function createWindow () {
+async function createWindow () {
     windowMain = new BrowserWindow({
         width:  800,
         height: 600,
@@ -38,19 +41,19 @@ function createWindow () {
         createWindow();
     });*/
 
-    //windowMain.loadFile('index.html');
-    windowMain.loadURL(require('url').format({
-        protocol: 'file',
-        slashes:  true,
-        pathname: path.join(__dirname, 'index.html')
-    }));
+    await windowMain.loadFile(path.join(__dirname, 'index.html'));
 
     // for debug
     //windowMain.webContents.openDevTools();
+
+    return windowMain;
 }
 
-app.whenReady().then(() => {
-    createWindow();
+app.requestSingleInstanceLock() || app.quit();
+
+app.whenReady().then(async () => {
+    await createWindow();
+
     elemon({
         app: app,
         mainFile: 'main.js',

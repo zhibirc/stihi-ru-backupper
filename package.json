@@ -1,7 +1,8 @@
 {
     "name": "stihi-ru-backupper",
-    "version": "1.0.0",
+    "productName": "STIHI.RU Backupper",
     "description": "",
+    "version": "1.0.0",
     "author": {
         "name": "Yaroslav Surilov",
         "email": ""
@@ -15,7 +16,7 @@
     "scripts": {
         "start": "electron desktop/main.js",
         "pack": "electron-builder --dir",
-        "dist": "electron-builder"
+        "dist": "electron-builder --macos --linux --windows"
     },
     "dependencies": {
         "cheerio": "^1.0.0-rc.3",
@@ -28,6 +29,7 @@
     "devDependencies": {
         "electron": "^8.1.1",
         "electron-builder": "^22.4.1",
+        "electron-debug": "^3.0.1",
         "elemon": "^5.0.3"
     },
     "keywords": [
