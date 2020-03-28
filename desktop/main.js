@@ -11,6 +11,7 @@ function createWindow () {
         width:  800,
         height: 600,
         show: false,
+        resizable: false,
         backgroundColor: '#2e2c29',
         webPreferences: {
             nodeIntegration: true,
@@ -22,6 +23,10 @@ function createWindow () {
         //console.log(document.body.innerHTML);
         windowMain.show();
     });
+
+    windowMain.on('show', () => {});
+
+    windowMain.on('hide', () => {});
 
     windowMain.on('closed', () => {
         windowMain = null;
