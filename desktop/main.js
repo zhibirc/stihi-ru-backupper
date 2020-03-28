@@ -2,9 +2,12 @@
 
 const path = require('path');
 const {app, BrowserWindow} = require('electron');
+const elemon = require('elemon');
+
+let windowMain;
 
 function createWindow () {
-    let windowMain = new BrowserWindow({
+    windowMain = new BrowserWindow({
         width:  800,
         height: 600,
         show: false,
@@ -41,7 +44,16 @@ function createWindow () {
     //windowMain.webContents.openDevTools();
 }
 
-app.whenReady().then(createWindow);
+app.whenReady().then(() => {
+    createWindow();
+    elemon({
+        app: app,
+        mainFile: 'main.js',
+        bws: [
+            {bw: windowMain, res: [/* watch all files in dir, reload on any changes */]}
+        ]
+    })
+});
 
 app.on('window-all-closed', () => {
     process.platform === 'darwin' || app.quit();
