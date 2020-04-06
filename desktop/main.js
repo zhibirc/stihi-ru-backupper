@@ -44,7 +44,7 @@ async function createWindow () {
     await windowMain.loadFile(path.join(__dirname, 'index.html'));
 
     // for debug
-    //windowMain.webContents.openDevTools();
+    windowMain.webContents.openDevTools();
 
     return windowMain;
 }
