@@ -2,63 +2,103 @@
 
 const path = require('path');
 const {app, BrowserWindow} = require('electron');
+const metrics = require('./metrics');
+
 const elemon = require('elemon');
-const debug = require('electron-debug');
+const debug  = require('electron-debug');
 
 debug();
-
-let windowMain;
-
-async function createWindow () {
-    windowMain = new BrowserWindow({
-        width:  800,
-        height: 600,
-        show: false,
-        resizable: false,
-        backgroundColor: '#2e2c29',
-        webPreferences: {
-            nodeIntegration: true,
-            preload: path.join(__dirname, 'preload.js')
-        }
-    });
-
-    windowMain.once('ready-to-show', () => {
-        //console.log(document.body.innerHTML);
-        windowMain.show();
-    });
-
-    windowMain.on('show', () => {});
-
-    windowMain.on('hide', () => {});
-
-    windowMain.on('closed', () => {
-        windowMain = null;
-    });
-
-    // if the render process crashes, reload the window
-    /*windowMain.webContents.on('crashed', () => {
-        windowMain.destroy();
-        createWindow();
-    });*/
-
-    await windowMain.loadFile(path.join(__dirname, 'index.html'));
-
-    // for debug
-    windowMain.webContents.openDevTools();
-
-    return windowMain;
-}
 
 app.requestSingleInstanceLock() || app.quit();
 
 app.whenReady().then(async () => {
-    await createWindow();
+    const pages = {
+        main: (async () => {
+            let page = new BrowserWindow({
+                width:  metrics.width,
+                height: metrics.height,
+                show: false,
+                resizable: false,
+                backgroundColor: '#2e2c29',
+                webPreferences: {
+                    nodeIntegration: true,
+                    preload: path.join(__dirname, 'preload.js')
+                }
+            });
+
+            page.once('ready-to-show', () => {
+                //console.log(document.body.innerHTML);
+                page.show();
+            });
+
+            page.on('show', () => {});
+
+            page.on('hide', () => {});
+
+            page.on('closed', () => {
+                page = null;
+            });
+
+            // if the render process crashes, reload the window
+            /*page.webContents.on('crashed', () => {
+                page.destroy();
+                createWindow();
+            });*/
+
+            await page.loadFile(path.join(__dirname, 'main.html'));
+
+            // for debug
+            page.webContents.openDevTools();
+
+            return page;
+        })(),
+        settings: (async () => {
+            let page = new BrowserWindow({
+                width:  metrics.width,
+                height: metrics.height,
+                show: false,
+                resizable: false,
+                backgroundColor: '#2e2c29',
+                webPreferences: {
+                    nodeIntegration: true,
+                    preload: path.join(__dirname, 'preload.js')
+                }
+            });
+
+            page.once('ready-to-show', () => {
+                //console.log(document.body.innerHTML);
+                page.show();
+            });
+
+            page.on('show', () => {});
+
+            page.on('hide', () => {});
+
+            page.on('closed', () => {
+                page = null;
+            });
+
+            // if the render process crashes, reload the window
+            /*page.webContents.on('crashed', () => {
+                page.destroy();
+                createWindow();
+            });*/
+
+            await page.loadFile(path.join(__dirname, 'settings.html'));
+
+            // for debug
+            page.webContents.openDevTools();
+
+            return page;
+        })()
+    };
 
     elemon({
         app: app,
         mainFile: 'main.js',
         bws: [
-            {bw: windowMain, res: [/* watch all files in dir, reload on any changes */]}
+            {bw: pages.main, res: [/* watch all files in dir, reload on any changes */]},
+            {bw: pages.settings, res: [/* watch all files in dir, reload on any changes */]},
         ]
     })
 });
@@ -68,7 +108,7 @@ app.on('window-all-closed', () => {
 });
 
 app.on('activate', () => {
-    BrowserWindow.getAllWindows().length || createWindow();
+    BrowserWindow.getAllWindows().length || app.emit('ready');
 });
 
 process.on('uncaughtException', (error = {}) => {
