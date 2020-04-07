@@ -16,7 +16,7 @@
     "scripts": {
         "start": "electron desktop/main.js",
         "pack": "electron-builder --dir",
-        "dist": "electron-builder --macos --linux --windows"
+        "dist": "electron-builder --linux --windows"
     },
     "dependencies": {
         "cheerio": "^1.0.0-rc.3",
