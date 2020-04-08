@@ -19,6 +19,7 @@
         "dist": "electron-builder --linux --windows"
     },
     "dependencies": {
+        "bulma": "^0.8.1",
         "cheerio": "^1.0.0-rc.3",
         "commander": "^4.1.1",
         "got": "^10.6.0",

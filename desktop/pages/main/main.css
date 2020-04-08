@@ -1,3 +1,5 @@
+@import url('../../../node_modules/bulma/css/bulma.min.css');
+
 html, body, div, header, section, footer {
     border:  0;
     margin:  0;
