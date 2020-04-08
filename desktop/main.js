@@ -1,7 +1,7 @@
 'use strict';
 
 const path = require('path');
-const {app, BrowserWindow} = require('electron');
+const {app, BrowserWindow, ipcMain} = require('electron');
 const metrics = require('./metrics');
 
 const elemon = require('elemon');
@@ -12,14 +12,19 @@ debug();
 app.requestSingleInstanceLock() || app.quit();
 
 app.whenReady().then(async () => {
+    const commonOptions = {
+        width:  metrics.width,
+        height: metrics.height,
+        show: false,
+        resizable: false,
+        icon: path.join(__dirname, 'icon.png'),
+        backgroundColor: '#2e2c29',
+    };
+
     const pages = {
         main: (async () => {
             let page = new BrowserWindow({
-                width:  metrics.width,
-                height: metrics.height,
-                show: false,
-                resizable: false,
-                backgroundColor: '#2e2c29',
+                ...commonOptions,
                 webPreferences: {
                     nodeIntegration: true,
                     preload: path.join(__dirname, 'preload.js')
@@ -39,13 +44,7 @@ app.whenReady().then(async () => {
                 page = null;
             });
 
-            // if the render process crashes, reload the window
-            /*page.webContents.on('crashed', () => {
-                page.destroy();
-                createWindow();
-            });*/
-
-            await page.loadFile(path.join(__dirname, 'main.html'));
+            await page.loadFile(path.join(__dirname, './pages/main', 'main.html'));
 
             // for debug
             page.webContents.openDevTools();
@@ -54,11 +53,7 @@ app.whenReady().then(async () => {
         })(),
         settings: (async () => {
             let page = new BrowserWindow({
-                width:  metrics.width,
-                height: metrics.height,
-                show: false,
-                resizable: false,
-                backgroundColor: '#2e2c29',
+                ...commonOptions,
                 webPreferences: {
                     nodeIntegration: true,
                     preload: path.join(__dirname, 'preload.js')
@@ -78,13 +73,36 @@ app.whenReady().then(async () => {
                 page = null;
             });
 
-            // if the render process crashes, reload the window
-            /*page.webContents.on('crashed', () => {
-                page.destroy();
-                createWindow();
-            });*/
+            await page.loadFile(path.join(__dirname, './pages/settings', 'settings.html'));
 
-            await page.loadFile(path.join(__dirname, 'settings.html'));
+            // for debug
+            page.webContents.openDevTools();
+
+            return page;
+        })(),
+        help: (async () => {
+            let page = new BrowserWindow({
+                ...commonOptions,
+                webPreferences: {
+                    nodeIntegration: true,
+                    preload: path.join(__dirname, 'preload.js')
+                }
+            });
+
+            page.once('ready-to-show', () => {
+                //console.log(document.body.innerHTML);
+                page.show();
+            });
+
+            page.on('show', () => {});
+
+            page.on('hide', () => {});
+
+            page.on('closed', () => {
+                page = null;
+            });
+
+            await page.loadFile(path.join(__dirname, './pages/help', 'help.html'));
 
             // for debug
             page.webContents.openDevTools();
