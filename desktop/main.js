@@ -4,7 +4,6 @@ const path = require('path');
 const {app, BrowserWindow, ipcMain} = require('electron');
 const metrics = require('./metrics');
 
-const elemon = require('elemon');
 const debug  = require('electron-debug');
 
 debug();
@@ -18,7 +17,7 @@ app.whenReady().then(async () => {
         show: false,
         resizable: false,
         icon: path.join(__dirname, 'icon.png'),
-        backgroundColor: '#2e2c29',
+        backgroundColor: '#23d160',
     };
 
     const pages = {
@@ -51,7 +50,7 @@ app.whenReady().then(async () => {
 
             return page;
         })(),
-        settings: (async () => {
+/*        settings: (async () => {
             let page = new BrowserWindow({
                 ...commonOptions,
                 webPreferences: {
@@ -108,17 +107,8 @@ app.whenReady().then(async () => {
             page.webContents.openDevTools();
 
             return page;
-        })()
+        })()*/
     };
-
-    elemon({
-        app: app,
-        mainFile: 'main.js',
-        bws: [
-            {bw: pages.main, res: [/* watch all files in dir, reload on any changes */]},
-            {bw: pages.settings, res: [/* watch all files in dir, reload on any changes */]},
-        ]
-    })
 });
 
 app.on('window-all-closed', () => {
