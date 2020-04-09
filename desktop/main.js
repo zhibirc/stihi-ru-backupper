@@ -46,7 +46,7 @@ app.whenReady().then(async () => {
             await page.loadFile(path.join(__dirname, './pages/main', 'main.html'));
 
             // for debug
-            page.webContents.openDevTools();
+            //page.webContents.openDevTools();
 
             return page;
         })(),
