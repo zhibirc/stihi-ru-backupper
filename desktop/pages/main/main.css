@@ -1,6 +1,12 @@
 @import url('../../../node_modules/@fortawesome/fontawesome-free/css/all.min.css');
 @import url('../../../node_modules/bulma/css/bulma.min.css');
 
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
 html, body, div, header, section, footer {
     border:  0;
     margin:  0;
