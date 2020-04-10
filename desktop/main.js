@@ -1,10 +1,17 @@
 'use strict';
 
-const path = require('path');
-const {app, BrowserWindow, ipcMain} = require('electron');
+const path                 = require('path');
+const {app, BrowserWindow} = require('electron');
+const debug                = require('electron-debug');
+
 const metrics = require('./metrics');
 
-const debug  = require('electron-debug');
+require('electron-reload')(__dirname);
+
+// this way is for hard resetting instead of Web Contents reset only as in above
+/*require('electron-reload')(__dirname, {
+    electron: path.join(__dirname, 'node_modules', '.bin', 'electron')
+});*/
 
 debug();
 
@@ -16,8 +23,8 @@ app.whenReady().then(async () => {
         height: metrics.height,
         show: false,
         resizable: false,
-        icon: path.join(__dirname, 'icon.png'),
-        backgroundColor: '#23d160',
+        icon: path.join(__dirname, metrics.icon),
+        backgroundColor: metrics.background
     };
 
     const pages = {
