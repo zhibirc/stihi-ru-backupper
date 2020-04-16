@@ -7,8 +7,10 @@
 *.json text
 *.html text
 *.md   text
-*.po   text
-*.pot  text
-*.pug  text
-*.scss text
-*.txt  text
+.*     text
+
+# definitively binary files
+*.png binary
+
+# default decisions when merge conflicts appear
+package-lock.json merge=ours
