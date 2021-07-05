@@ -14,3 +14,5 @@ I'm grateful to the community for contributing bug fixes and improvements. Read 
 ## License
 
 **stihi-ru-backupper** is [MIT licensed](./license.md).
+
+**desktop app track** is [CC-BY 4.0 licensed](https://creativecommons.org/licenses/by/4.0/).
