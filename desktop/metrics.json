@@ -2,5 +2,8 @@
     "width": 800,
     "height": 600,
     "background": "#23d160",
-    "icon": "icon.png"
+    "icon": "icon.png",
+    "title": "STIHI.RU Backupper",
+    "guide": "Enter author's name ➤ Choose folder to save ➤ Press button and... ✅",
+    "track": "../track.mp3"
 }

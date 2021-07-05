@@ -2,3 +2,4 @@
 node_modules
 dist
 backups
+desktop/python/__pycache__/

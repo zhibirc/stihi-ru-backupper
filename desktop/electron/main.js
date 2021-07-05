@@ -4,7 +4,7 @@ const path                 = require('path');
 const {app, BrowserWindow} = require('electron');
 const debug                = require('electron-debug');
 
-const metrics = require('./metrics');
+const metrics = require('../metrics.json');
 
 require('electron-reload')(__dirname);
 
@@ -24,7 +24,8 @@ app.whenReady().then(async () => {
         show: false,
         resizable: false,
         icon: path.join(__dirname, metrics.icon),
-        backgroundColor: metrics.background
+        backgroundColor: metrics.background,
+        title: metrics.title
     };
 
     const pages = {

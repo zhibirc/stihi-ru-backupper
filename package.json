@@ -7,33 +7,15 @@
         "name": "Yaroslav Surilov",
         "email": ""
     },
-    "main": "./desktop/main.js",
     "private": true,
     "bin": {
         "stihi": "./bin/cli.js"
     },
     "build": {},
     "scripts": {
-        "start": "electron desktop/main.js",
+        "start": "electron desktop/electron/main.js",
         "pack": "electron-builder --dir",
         "dist": "electron-builder --linux --windows"
-    },
-    "dependencies": {
-        "@fortawesome/fontawesome-free": "^5.13.0",
-        "bulma": "^0.8.1",
-        "cheerio": "^1.0.0-rc.3",
-        "commander": "^4.1.1",
-        "got": "^10.6.0",
-        "windows-1251": "^1.0.0",
-        "xregexp": "^4.3.0",
-        "yandex-speller": "^4.0.0"
-    },
-    "devDependencies": {
-        "devtron": "^1.4.0",
-        "electron": "^8.1.1",
-        "electron-builder": "^22.4.1",
-        "electron-debug": "^3.0.1",
-        "electron-reload": "^1.5.0"
     },
     "keywords": [
         "stihi",
@@ -48,5 +30,22 @@
         "parsing",
         "syntax-analyzer"
     ],
-    "license": "MIT"
+    "license": "MIT",
+    "devDependencies": {
+        "devtron": "^1.4.0",
+        "electron": "^13.1.5",
+        "electron-builder": "^22.11.7",
+        "electron-debug": "^3.2.0",
+        "electron-reload": "^1.5.0"
+    },
+    "dependencies": {
+        "@fortawesome/fontawesome-free": "^5.15.3",
+        "bulma": "^0.9.3",
+        "cheerio": "^1.0.0-rc.10",
+        "commander": "^8.0.0",
+        "got": "^11.8.2",
+        "windows-1251": "^1.0.0",
+        "xregexp": "^5.0.2",
+        "yandex-speller": "^4.1.0"
+    }
 }
