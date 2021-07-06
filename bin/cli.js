@@ -1,16 +1,15 @@
 #!/usr/bin/env node
 
 /**
- * @author Yaroslav Surilov <>
+ * CLI application entry point.
  *
- * @license MIT
+ * @author Yaroslav Surilov <zhibirc.echo@gmail.com>
  */
 
 'use strict';
 
 /** @see {@link https://www.npmjs.com/package/commander} */
 const commander = require('commander');
-
 const App = require('../lib/app');
 
 commander
@@ -21,8 +20,14 @@ commander
     .option('-a, --analyze', 'analyze the resulting file and report potential problems')
     .parse(process.argv);
 
+const accountName = commander.args.pop();
+
+if ( !accountName ) {
+    return commander.help();
+}
+
 const app = new App({
-    accountName:  commander.args.pop(),
+    accountName:  accountName.trim(),
     reverseOrder: commander.reverseOrder,
     analyze:      commander.analyze
 });
