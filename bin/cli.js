@@ -10,7 +10,7 @@
 
 /** @see {@link https://www.npmjs.com/package/commander} */
 const commander = require('commander');
-const App = require('../lib/app');
+const App = require('../components/app');
 
 commander
     .version(require('../package.json').version)

@@ -1,5 +1,8 @@
-from tkinter import Tk, PhotoImage, Label, Entry, Button, messagebox, filedialog, END, CENTER
+from tkinter import Tk, PhotoImage, messagebox, filedialog, END, RIGHT
+from tkinter.ttk import Separator, Progressbar, Button, Entry, Label
 from playsound import playsound
+from desktop.python.components import gui
+from desktop.python.components import extractor
 
 
 def init(metrics_data: dict):
@@ -11,17 +14,13 @@ def init(metrics_data: dict):
     top_window.configure(bg=metrics_data['background'])
     top_window.title(metrics_data['title'])
 
-    # TODO: set $HOME directory as default (may be in config)
-    path_save = None
-
     def play(track_path: str, duration: int) -> None:
         playsound(track_path, False)
         top_window.after(duration * 1000, lambda: play(track_path, duration))
 
     def pick_directory():
+        # TODO: set $HOME directory as default (may be in config)
         path_save = filedialog.askdirectory().strip()
-
-        print('directory to save:', path_save)
 
         if path_save:
             input_directory.delete(0, END)
@@ -29,8 +28,7 @@ def init(metrics_data: dict):
 
     def make_request():
         author: str = input_author.get().strip()
-
-        print('author:', author)
+        path_save: str = input_directory.get().strip()
 
         if not author.strip():
             messagebox.showerror('🚫 Error occurred!', 'Empty string is not allowed as author\'s name.')
@@ -38,6 +36,8 @@ def init(metrics_data: dict):
             return 1
 
         # directory to save should be present -- chosen or default
+        print('author:', author)
+        print('directory to save:', path_save)
 
         pass
 
@@ -50,17 +50,19 @@ def init(metrics_data: dict):
     label_guide.grid(column=0, row=0, padx=(14, 5), pady=(20, 50))
 
     input_author = Entry(top_window, width=50)
-    input_author.grid(column=0, row=8)
+    input_author.grid(row=8, column=0)
     input_author.focus()
 
     input_directory = Entry(top_window, width=50)
-    input_directory.grid(column=0, row=9)
+    input_directory.grid(row=9, column=0)
 
     button_choose = Button(top_window, text='Choose', command=pick_directory)
-    button_choose.grid(column=0, row=9)
+    button_choose.grid(row=9, column=1)
+
+    Separator(orient='horizontal')
 
     button_go = Button(top_window, text='Go!', command=make_request)
-    button_go.grid(column=0, row=10)
+    button_go.grid(row=10, column=0)
 
     top_window.protocol('WM_DELETE_WINDOW', close)
     play(f'../{metrics_data["track"]}', 83)

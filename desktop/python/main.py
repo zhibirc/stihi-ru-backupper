@@ -1,5 +1,5 @@
 import json
-import app
+from components import app
 
 if __name__ == '__main__':
     metricsFile = open('../metrics.json')

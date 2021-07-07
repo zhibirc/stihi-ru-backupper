@@ -20,10 +20,10 @@ const got = require('got');
 /** @see {@link https://www.npmjs.com/package/cheerio} */
 const cheerio = require('cheerio');
 
-const composer = new (require('../lib/composer'));
-const progress = new (require('../lib/progress'));
-const analyzer = new (require('../lib/analyzer'));
-const Sort     = require('../lib/sort');
+const composer = new (require('./composer'));
+const progress = new (require('./progress'));
+const analyzer = new (require('./analyzer'));
+const Sort     = require('./sort');
 
 const DIRECTORY_NAME = 'backups';
 const FILE_NAME      = `stihi-ru-backup_${new Date().toISOString().slice(0, 10)}.txt`;
@@ -107,7 +107,8 @@ class App {
 /**
  *
  * @param buffer
- * @returns {string}
+ *
+ * @return {string}
  */
 function decode ( buffer ) {
     return windows1251.decode(buffer.toString('binary'));
@@ -116,7 +117,8 @@ function decode ( buffer ) {
 /**
  *
  * @param url
- * @returns {Promise<*|CancelableRequest<Response<string>>>}
+ *
+ * @return {Promise}
  */
 async function load ( url ) {
     return got(url, {
@@ -130,7 +132,8 @@ async function load ( url ) {
  *
  * @param data
  * @param isPoem
- * @returns {(*|jQuery|HTMLElement|CancelableRequest<string>|Promise<string>|string)[]}
+ *
+ * @return {array|undefined}
  */
 function parse ( data, isPoem = false ) {
     $ = cheerio.load(data);

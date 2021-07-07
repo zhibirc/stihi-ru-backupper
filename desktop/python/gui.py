@@ -1,2 +1,0 @@
-def render(metrics):
-    pass
