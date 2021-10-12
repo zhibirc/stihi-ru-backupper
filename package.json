@@ -33,7 +33,7 @@
     "license": "MIT",
     "devDependencies": {
         "devtron": "^1.4.0",
-        "electron": "^13.1.5",
+        "electron": "^13.3.0",
         "electron-builder": "^22.11.7",
         "electron-debug": "^3.2.0",
         "electron-reload": "^1.5.0"
