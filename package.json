@@ -43,7 +43,7 @@
         "bulma": "^0.9.3",
         "cheerio": "^1.0.0-rc.10",
         "commander": "^8.0.0",
-        "got": "^11.8.2",
+        "got": "^11.8.5",
         "windows-1251": "^1.0.0",
         "xregexp": "^5.0.2",
         "yandex-speller": "^4.1.0"
